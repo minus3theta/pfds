@@ -14,14 +14,14 @@ member x (T l y r) =
     True
 
 member2 :: Ord e => e -> Tree e -> Bool
-member2 x t = go x t Nothing
-  where go _ E Nothing = False
-        go y E (Just z) = y == z
-        go y (T l z r) c =
-          if y < z then
-            go y l c
+member2 x t = go t Nothing
+  where go E Nothing = False
+        go E (Just y) = x == y
+        go (T l y r) c =
+          if x < y then
+            go l c
           else
-            go y r (Just z)
+            go r $ Just y
 
 insert :: Ord e => e -> Tree e -> Tree e
 insert x E = T E x E
