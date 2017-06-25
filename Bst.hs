@@ -58,7 +58,22 @@ insert3 x t = maybe t id $ go t Nothing Just
           else
             go r (Just y) (\u -> cont $ T l y u)
 
+-- Ex. 2.5 (a)
 complete :: e -> Int -> Tree e
 complete _ 0 = E
 complete x n = let t = complete x $ n-1 in
                  T t x t
+
+-- Ex. 2.5 (b)
+-- bad complexity
+balanced :: e -> Int -> Tree e
+balanced _ 0 = E
+balanced x n
+  | mod n 2 == 1 =
+      let t = balanced x $ div (n-1) 2 in
+        T t x t
+  | otherwise = let p = div (n-1) 2 in
+                  let (t,u) = create2 p in
+                    T t x u
+  where create2 p =
+          (balanced x p, balanced x $ p+1)
