@@ -68,7 +68,6 @@ complete x n = let t = complete x $ n-1 in
                  T t x t
 
 -- Ex. 2.5 (b)
--- bad complexity
 balanced :: e -> Int -> Tree e
 balanced _ 0 = E
 balanced x n
@@ -78,5 +77,10 @@ balanced x n
   | otherwise = let p = div (n-1) 2 in
                   let (t,u) = create2 p in
                     T t x u
-  where create2 p =
-          (balanced x p, balanced x $ p+1)
+  where create2 0 = (E, T E x E)
+        create2 p =
+          let (t,u) = create2 $ div (p-1) 2 in
+            if mod p 2 == 0 then
+              (T t x u, T u x u)
+            else
+              (T t x t, T t x u)
