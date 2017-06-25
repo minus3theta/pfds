@@ -13,6 +13,7 @@ member x (T l y r) =
   else
     True
 
+-- Ex. 2.2
 member2 :: Ord e => e -> Tree e -> Bool
 member2 x t = go t Nothing
   where go E Nothing = False
@@ -33,6 +34,7 @@ insert x (T l y r @ s) =
   else
     s
 
+-- Ex. 2.3
 insert2 :: Ord e => e -> Tree e -> Tree e
 insert2 x t = maybe t id $ go t Just
   where go E cont = cont $ T E x E
@@ -44,6 +46,7 @@ insert2 x t = maybe t id $ go t Just
           else
             Nothing
 
+-- Ex. 2.4
 insert3 :: Ord e => e -> Tree e -> Tree e
 insert3 x t = maybe t id $ go t Nothing Just
   where go E Nothing cont = cont $ T E x E
