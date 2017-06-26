@@ -26,7 +26,7 @@ member2 x t = go t Nothing
 
 insert :: Ord e => e -> Tree e -> Tree e
 insert x E = T E x E
-insert x (T l y r @ s) =
+insert x s@(T l y r) =
   if x < y then
     T (insert x l) y r
   else if x > y then
